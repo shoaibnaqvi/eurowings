@@ -1,5 +1,10 @@
 # eurowings
 
+## Note:
+I assume that you already have installed the following packages before setting up the project
+- node v15.14.0 (minimum requirement is v14.*)
+- vue and vue-cli installed globally
+
 ## development environment
 
 - Run `npm install`
