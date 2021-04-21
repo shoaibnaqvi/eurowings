@@ -1,0 +1,91 @@
+.orange{
+  color: orange
+}
+label {
+  padding-left: 10px
+}
+@media(min-width:1200px) {
+  #sidebar {
+    width: 20%;
+    padding: 20px;
+    float: left
+  }
+
+  #products {
+    width: 80%;
+    padding: 10px;
+    margin: 0;
+    float: right
+  }
+
+  .filter,
+  #mobile-filter {
+    display: none
+  }
+}
+
+@media(min-width:992px) and (max-width:1199px) {
+  #sidebar {
+    width: 30%;
+    padding: 20px;
+    float: left
+  }
+
+  #products {
+    width: 70%;
+    padding: 10px;
+    margin: 0;
+    float: right
+  }
+
+  .filter,
+  #mobile-filter {
+    display: none
+  }
+}
+
+@media(min-width:768px) and (max-width:991px) {
+  #sidebar {
+    width: 35%;
+    padding: 20px;
+    float: left
+  }
+
+  #products {
+    width: 65%;
+    padding: 10px;
+    margin: 0;
+    float: right
+  }
+
+  .filter,
+  #mobile-filter {
+    display: none
+  }
+}
+
+@media(min-width:576px) and (max-width:767px) {
+  #sidebar {
+    width: 40%;
+    padding: 20px;
+    float: left
+  }
+
+  #products {
+    width: 60%;
+    padding: 10px;
+    margin: 0;
+    float: right
+  }
+
+  .filter,
+  #mobile-filter {
+    display: none
+  }
+}
+
+@media(max-width:575px) {
+  #sidebar {
+    display: none
+  }
+}

@@ -10,6 +10,9 @@ import store from './store'
 import VueSession from 'vue-session'
 import './middleware/requireAuth'
 import './middleware/hideForAuthenticatedUsers'
+import VueLazyImage from "vue-lazy-images";
+
+Vue.use(VueLazyImage)
 
 require('dotenv').config()
 

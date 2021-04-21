@@ -1,6 +1,6 @@
 <template>
   <header>
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
       <router-link class="navbar-brand" :to="{name: 'Home'}">Navbar</router-link>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
               aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -22,9 +22,9 @@
             <router-link v-if="loggedIn" :to="{ name: 'Logout', params: { }}" class="nav-link">Logout</router-link>
           </li>
         </ul>
-        <div v-if="loggedIn" class="nav-item pull-right">
+        <div v-if="loggedIn" class="nav-item pull-right text-white">
           <span>
-            Logged in as: <font color="black">{{ accountUsername }}</font>
+            Logged in as: {{ accountUsername }}
           </span>
         </div>
       </div>
@@ -41,7 +41,6 @@ export default {
     loggedIn: state =>  state.user.loggedIn,
     accountUsername: state => state.user.accountUsername,
     accountId: state => state.user.accountId
-
   }),
 }
 </script>

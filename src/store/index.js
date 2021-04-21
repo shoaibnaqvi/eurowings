@@ -19,7 +19,8 @@ export default new Vuex.Store({
         },
         gallery: {
             images: [],
-            loading: true
+            loading: true,
+            currentPage: 1
         }
     },
     getters: {
@@ -33,40 +34,24 @@ export default new Vuex.Store({
             return state.user.accountId
         }
     },
-    setters: {
-
-    },
+    setters: {},
     mutations: {
-        login(state, params) {
-            this._vm.$session.start()
-            this._vm.$session.set('access_token', params.access_token)
-            this._vm.$session.set('account_id', params.account_id)
-            this._vm.$session.set('account_username', params.account_username)
-            this._vm.$session.set('expires_in', params.expires_in)
-            this._vm.$session.set('refresh_token', params.refresh_token)
-            this._vm.$session.set('token_type', params.token_type)
+        login(state) {
             state.user.loggedIn = true
-            state.user.accountId = this._vm.$session.get('account_id')
-            state.user.accountUsername = this._vm.$session.get('account_username')
-            state.user.accessToken = this._vm.$session.get('access_token')
-            console.log(this._vm.$session.getAll())
+            state.user.accountId = Vue.prototype.$session.get('account_id')
+            state.user.accountUsername = Vue.prototype.$session.get('account_username')
+            state.user.accessToken = Vue.prototype.$session.get('access_token')
         },
 
         logout(state) {
-            console.log(this._vm.$session);
-            this._vm.$session.set('access_token', null)
-            this._vm.$session.set('account_id', null)
-            this._vm.$session.set('account_username', null)
-            this._vm.$session.set('expires_in', null)
-            this._vm.$session.set('refresh_token', null)
-            this._vm.$session.set('token_type', null)
             state.user.loggedIn = false
             state.user.accountId = null
             state.user.accountUsername = null
             state.user.accessToken = null
-            console.log(this._vm.$session.getAll());
         },
         loadGalleryImages(state, filters) {
+            state.gallery.loading = true
+            state.gallery.currentPage === filters.currentPage ? (state.gallery.images = []) : (state.gallery.currentPage = filters.currentPage)
             var axios = require('axios');
             var url = process.env.VUE_APP_API_ENDPOINT + '/gallery/' +
                 filters.activeSection + '/' +
@@ -78,21 +63,44 @@ export default new Vuex.Store({
                 filters.albumPreviews
             axios.get(url, {
                 headers: {
-                    'Authorization': 'Bearer 9ec5654f277ebf4664eb1044b05cddec48417f17',
+                    'Authorization': 'Bearer ' + this._vm.$session.get('access_token'),
                 },
             }).then(function (response) {
                 response.data.data.map(function (album) {
-                    if(album.is_album !== undefined && album.is_album){
+                    if (album.is_album !== undefined && album.is_album) {
                         album.images.map(function (image) {
                             state.gallery.images.push(image)
                         })
                     }
+                    return state.gallery.images.push(album)
                 })
-                console.log(state.gallery.images)
-                //state.gallery.images = response.data.data
+                state.gallery.loading = false
             })
         }
     },
-    actions: {},
+    actions: {
+        loadGalleryImages(context, filters) {
+            context.commit('loadGalleryImages', filters)
+        },
+        login(context, params) {
+            Vue.prototype.$session.start()
+            Vue.prototype.$session.set('access_token', params.access_token)
+            Vue.prototype.$session.set('account_id', params.account_id)
+            Vue.prototype.$session.set('account_username', params.account_username)
+            Vue.prototype.$session.set('expires_in', params.expires_in)
+            Vue.prototype.$session.set('refresh_token', params.refresh_token)
+            Vue.prototype.$session.set('token_type', params.token_type)
+            context.commit('login')
+        },
+        logout(context) {
+            Vue.prototype.$session.set('access_token', null)
+            Vue.prototype.$session.set('account_id', null)
+            Vue.prototype.$session.set('account_username', null)
+            Vue.prototype.$session.set('expires_in', null)
+            Vue.prototype.$session.set('refresh_token', null)
+            Vue.prototype.$session.set('token_type', null)
+            context.commit('logout')
+        },
+    },
     modules: {}
 })

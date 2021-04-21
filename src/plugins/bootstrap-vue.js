@@ -1,4 +1,5 @@
 import Vue from 'vue'
+import 'bootstrap'
 import { BootstrapVue, IconsPlugin } from 'bootstrap-vue'
 
 // Import Bootstrap an BootstrapVue CSS files (order is important)

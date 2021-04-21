@@ -1,11 +1,26 @@
-.ratings i {
-  color: green
-}
+.eq-cols{
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
 
-.install span {
-  font-size: 12px
-}
+  display: flex;
+  -webkit-box-align: stretch;
+  -webkit-align-items: stretch;
+  -ms-flex-align: stretch;
+  align-items: stretch;
 
-.col-md-4 {
-  margin-top: 27px
+  -webkit-flex-wrap: wrap;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
+}
+img.card-img-top {
+  max-height: 20em;
+  width: auto;
+}
+video.card-img-top {
+  width: 100% !important;
+  height: auto;
+}
+.media-card {
+  text-align: center;
 }
